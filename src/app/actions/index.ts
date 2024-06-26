@@ -9,7 +9,7 @@ export async function doSocialLogin(formData: any) {
 }
 
 export async function doLogout() {
-  await signOut({ redirectTo: "/" });
+  await signOut({ redirectTo: "/signIn" });
 }
 
 export async function doCredentialLogin(formData: any) {
