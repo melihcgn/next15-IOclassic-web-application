@@ -6,7 +6,7 @@ import { ModeToggle } from '../molecules/Mode-toggle';
 import NavbarUsername from '../atoms/Navbar-username';
 const Navbar = () => {
   return (
-    <header className='min-w-full relative z-10 bg-blue-500'>
+    <header className='min-w-full relative z-10 bg-headerBgColor'>
       <nav className='max-w-full mx-auto flex justify-between items-center sm:px-16 px-6 py-2'>
         {/* Logo Section */}
         <Link href="/" className='flex items-center'>

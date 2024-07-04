@@ -5,7 +5,7 @@ import { signIn, signOut } from "@/auth";
 
 export async function doSocialLogin(formData: any) {
     const action = formData.get('action');
-    await signIn(action, { redirectTo: "/home" });
+    await signIn(action, { redirectTo: "/dashboard/customer" });
 }
 
 export async function doLogout() {
@@ -13,8 +13,6 @@ export async function doLogout() {
 }
 
 export async function doCredentialLogin(formData: any) {
-  console.log("formData", formData);
-  console.log("sfsdljfdsfkjsd")
   try {
     const response = await signIn("credentials", {
       email: formData.get("email"),
