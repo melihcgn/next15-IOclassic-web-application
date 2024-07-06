@@ -1,20 +1,22 @@
 import React from 'react'
-
+import Link from 'next/link'
 export const HeaderTitles = () => {
     return (
         <header className='text-2xl p-4 flex justify-start space-x-6 border-b border-slate-400'>
-            <button className=' '>
+            <div className=' '>
+                <Link href={"/dashboard/customer"}>
                 Customers
-            </button>
-            <button className=' '>
+                </Link>
+            </div>
+            <div className=' '>
                 Bookings
-            </button>
-            <button className=' '>
+            </div>
+            <div className=' '>
                 Consultations
-            </button>
-            <button className=''>
+            </div>
+            <div className=''>
                 Staff
-            </button>
+            </div>
         </header>
         )
 }

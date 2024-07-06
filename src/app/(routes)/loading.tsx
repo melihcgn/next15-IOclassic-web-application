@@ -11,7 +11,11 @@ const Loading: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  return <Progress value={progress} className="flex justify-center items-center w-[60%]" />;
+  return (
+  <div className="flex w-full justify-center items-center h-screen">
+    <Progress value={progress} className="w-[30%]" />
+  </div>
+  );
 };
 
 export default Loading;

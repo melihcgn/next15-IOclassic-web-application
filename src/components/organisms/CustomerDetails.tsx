@@ -1,14 +1,9 @@
+"use client"
 import React from 'react';
-import Image from 'next/image';
-import pencil from '../../../public/next.svg';
-import exchange from '../../../public/next.svg';
-import plus from '../../../public/next.svg';
-import refresh from '../../../public/next.svg';
-import rightAr from '../../../public/next.svg';
-import Link from 'next/link';
 import Table from '../molecules/Table';
-import TableShadcn from '../molecules/TableShadcn';
 import { FaPen } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa6";
+import { usePathname } from 'next/navigation'
 
 // Define interfaces for your data structures
 interface CustomerData {
@@ -106,16 +101,18 @@ const data: CustomerData = {
 };
 
 const CustomerDetails = () => {
+    const pathname = usePathname();
     return (
-        <div className="flex justify-between mr-8 flex-col sm:flex-row">
+        <div className="flex justify-between mr-8 flex-col sm:flex-row space-x-2">
             <div className="w-full sm:w-1/2">
                 <Table
                     id="personalDetails"
                     title="Personal Details (Vend)"
                     columns={['Email', '', 'Gender', '', '', '']}
+                    actions={true}
                     data={data.personalDetails.map(row => [row[0], row[1], '', row[2], row[3], ''])}
-                    link="/user/personalDetails"
-                    icon={FaPen.name}
+                    link={`${pathname}/personalDetails`}
+                    icon={FaPen} // Pass FaPen as the icon component
                     showHeader={false}
                 />
                 <Table
@@ -124,81 +121,87 @@ const CustomerDetails = () => {
                     columns={['Region', 'Type', 'Vend Link']}
                     data={data.regions}
                 />
-                {/* THIS CODE IS ANOTHER WAY TO IMPLEMENT TABLES USING SHADCN
-                 <TableShadcn
-                    id="regions"
-                    title="Regions"
-                    columns={['Region', 'Type', 'Vend Link']}
-                    data={data.regions}
-                /> */}
                 <Table
                     id="consultations"
                     title="Consultations"
+                    actions={true}
                     columns={['Presentation', 'Outlet', 'Type', 'Optometrist', 'Date', 'Actions']}
                     data={data.consultations}
                     link="/newConstDetail"
-                    icon={plus.src}
+                    icon={FaPlus} // Pass FaPen as the icon component
                 />
                 <Table
                     id="notes"
                     title="Notes"
+                    actions={true}
                     columns={['Notes', 'Actions']}
                     data={data.notes}
-                    icon={plus.src}
+                    icon={FaPlus} // Pass FaPen as the icon component
                 />
                 <Table
                     id="orders"
                     title="Orders"
                     columns={['Presentation', 'Outlet', 'Type', 'Optometrist']}
                     data={data.orders}
-                    icon={rightAr.src}
+                    icon={FaPen} // Pass FaPen as the icon component
                 />
                 <Table
                     id="healthFunds"
                     title="Health Funds"
+                    actions={true}
                     columns={['Type', 'Provider', 'Member ID', 'Status', 'Expiry', 'Actions']}
                     data={data.healthFunds}
-                    icon={plus.src}
+                    icon={FaPlus}
                 />
-            </div>
-
-            <div className="w-full sm:w-1/2 ml-2">
+                </div>
+                <div className="w-full sm:w-1/2">
                 <Table
                     id="prescriptions"
                     title="Prescriptions"
+                    actions={true}
                     columns={data.prescriptions.columns}
                     data={data.prescriptions.data}
-                    link="/newPrescription"
-                    icon={plus.src}
+                    icon={FaPlus} // Pass FaPen as the icon component
                 />
+                
                 <Table
-                    id="pupil_distance"
+                    id="pupilDistance"
                     title="Pupil Distance"
+                    actions={true}
                     columns={data.pupilDistance.columns}
                     data={data.pupilDistance.data}
-                    icon={plus.src}
+                    icon={FaPlus} // Pass FaPen as the icon component
                 />
                 <Table
                     id="images"
                     title="Images"
-                    columns={['', '']}
+                    actions={true}
+                    columns={['']}
                     data={data.images}
-                    icon={exchange.src}
-                    showHeader={false}
+                    icon={FaPen} // Pass FaPen as the icon component
                 />
                 <Table
                     id="files"
                     title="Files"
-                    columns={['', '']}
+                    actions={true}
+                    columns={['']}
                     data={data.files}
-                    icon={plus.src}
-                    showHeader={false}
+                    icon={FaPlus} // Pass FaPen as the icon component
                 />
                 <Table
                     id="activities"
                     title="Activities"
-                    columns={[]}
+                    columns={['']}
                     data={data.activities}
+                    icon={FaPen} // Pass FaPen as the icon component
+                />
+                <Table
+                    id="anotherPrescriptions"
+                    title="Another Prescriptions"
+                    actions={true}
+                    columns={data.anotherPrescriptions.columns}
+                    data={data.anotherPrescriptions.data}
+                    icon={FaPlus} // Pass FaPen as the icon component
                 />
             </div>
         </div>
