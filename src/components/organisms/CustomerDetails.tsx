@@ -127,7 +127,7 @@ const CustomerDetails = () => {
                     actions={true}
                     columns={['Presentation', 'Outlet', 'Type', 'Optometrist', 'Date', 'Actions']}
                     data={data.consultations}
-                    link="/newConstDetail"
+                    link={`${pathname}/newConstDetail`}
                     icon={FaPlus} // Pass FaPen as the icon component
                 />
                 <Table
