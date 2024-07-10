@@ -5,7 +5,7 @@ export const NamedTextarea = ({label, placeholder}: any) => {
   return (
     <div>            
         <Label htmlFor={label}>{label}</Label>
-        <Textarea placeholder={placeholder}></Textarea>
+        <Textarea className='overflow-hidden' placeholder={placeholder}></Textarea>
     </div>
   )
 }

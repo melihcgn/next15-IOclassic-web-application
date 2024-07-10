@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
@@ -9,12 +11,25 @@ interface RadioOption {
 
 interface RadioGroupBarProps {
   options: RadioOption[];
-  defaultValue?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-const RadioGroupBar: React.FC<RadioGroupBarProps> = ({ options, defaultValue = "option-1" }) => {
+const RadioGroupBar: React.FC<RadioGroupBarProps> = ({ options, value, onChange }) => {
+  // Internal state to manage the value if not provided externally
+  const [internalValue, setInternalValue] = useState(value || options[0]?.value);
+
+  // Handle change event
+  const handleChange = (val: string) => {
+    if (onChange) {
+      onChange(val);
+    } else {
+      setInternalValue(val);
+    }
+  };
+
   return (
-    <RadioGroup defaultValue={defaultValue}>
+    <RadioGroup value={value || internalValue} onValueChange={handleChange}>
       {options.map((option) => (
         <div key={option.value} className="flex items-center space-x-2">
           <RadioGroupItem value={option.value} id={option.value} />

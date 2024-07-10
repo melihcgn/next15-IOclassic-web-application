@@ -160,6 +160,7 @@ const CustomerDetails = () => {
                     title="Prescriptions"
                     actions={true}
                     columns={data.prescriptions.columns}
+                    link={`${pathname}/newPrescription`}
                     data={data.prescriptions.data}
                     icon={FaPlus} // Pass FaPen as the icon component
                 />

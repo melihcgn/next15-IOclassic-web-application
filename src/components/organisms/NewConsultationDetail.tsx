@@ -1,30 +1,29 @@
-import Image from 'next/image';
-import { RadioGroup } from '../ui/radio-group';
-import RadioGroupBar from '../molecules/RadioGroupBar';
+"use client"
 import Table from '../molecules/Table';
-import FormTable from '../molecules/FormTable';
-import { AltTable } from '../molecules/AltTable';
+import RadioGroupBar from '../molecules/RadioGroupBar';
+import { useState, useEffect } from 'react';
+import ClientFormTables from '../molecules/ClientFormTables';
 // Define interfaces for your data structures
 interface ConsultationData {
     personalDetails: string[][];
     consultations: string[][];
-    contactLensDetails: string[][]
+    contactLensDetails: string[][];
     standardConstDetails: string[][];
     constactLensAltTable: string[][];
 }
 
 // Define your data object with correct structure
-const data: ConsultationData = {
+const consultationData: ConsultationData = {
     personalDetails: [
-        ['Email', 'melihcaganari@gmail.com', 'Gender', 'melihcaganari@gmail.com'],
-        ['Name', 'melihcaganari@gmail.com', 'DOB', 'melihcaganari@gmail.com'],
-        ['Mobile', 'melihcaganari@gmail.com', 'Hobbies', 'melihcaganari@gmail.com'],
-        ['Phone', 'melihcaganari@gmail.com', 'Opt in', 'melihcaganari@gmail.com'],
+        ['Email', 'melihcaganari@gmail.com'],
+        ['Name', 'melihcaganari@gmail.com'],
+        ['Phone', 'melihcaganari@gmail.com'],
         ['Occupation', 'melihcaganari@gmail.com'],
-        ['Shipping', 'Newtown, 1'],
-        ['Home', 'Parcel Collect'],
-        ['Home', '275 Newtown, Newtown'],
-        ['Home', '']
+        ['Opt in', 'melihcaganari@gmail.com'],
+        ['Gender', 'Newtown, 1'],
+        ['DOB', 'Parcel Collect'],
+        ['Mobile', '275 Newtown, Newtown'],
+        ['Hobbies', 'sdfsdfds']
     ],
     consultations: [
         ['Presentation'],
@@ -34,7 +33,7 @@ const data: ConsultationData = {
     contactLensDetails: [
         ['Allergies'],
         ['Contact lens trial review'],
-        ['Contact lens solution/sytem'],
+        ['Contact lens solution/system'],
     ],
     standardConstDetails: [
         ['Ocular History'],
@@ -49,59 +48,74 @@ const data: ConsultationData = {
         ['Visual Acuity (Entering)', 'Visual Acuity (Entering)'],
         ['Visual Acuity (Fitting)', 'Visual Acuity (Fitting)'],
         ['Keratometry', 'Keratometry'],
-    ]
+    ],
 };
 
+const consOptions = [
+    { value: "option-one", label: "Standard" },
+    { value: "option-two", label: "Contact Lens" },
+    { value: "option-three", label: "Standard and Contact Lens" },
+];
+
+const recallOptions = [
+    { value: "option-one", label: "Do not change  Existing recall due 04 May 2025 7.00 pm" },
+    { value: "option-two", label: "Standard Proactive check up 11 Aug 2025 12:44 am" },
+    { value: "option-three", label: "Custom  Proactive check up" },
+];
+
+const dataWithRadioGroupBar = [
+    [
+        <RadioGroupBar options={recallOptions} />
+    ],
+    // Other rows if necessary
+];
 
 export default function NewConsultationDetail() {
-    const consOptions = [
-        { value: "option-one", label: "Standard" },
-        { value: "option-two", label: "Contact Lens" },
-        { value: "option-three", label: "Standard and Contact Lens" },
-    ];
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+    useEffect(() => {
+        // Set the initial state to match between server and client
+        setSelectedOption('option-one');
+    }, []);
+
+    if (selectedOption === null) {
+        // Prevent rendering until the state is set
+        return null;
+    }
+
+    
+
     return (
-        <div className='flex flex-row w-full items-start'>
+        <div className='flex flex-col w-full items-start'>
+            <div className='w-full'>
+            <RadioGroupBar 
+                    options={consOptions} 
+                    value={selectedOption} 
+                    onChange={setSelectedOption} 
+                />
+            </div>
+            <div className='flex flex-row space-x-2'>
+
             <div className='w-2/3'>
-                <FormTable
-                    id="consultations"
-                    title="Consultation"
-                    actions={true}
-                    columns={['Presentation']}
-                    data={data.consultations}
-                    link={`/newConstDetail`}
-                    altTable={<FormTable
-                        id="contactLensDetails"
-                        title=""
-                        actions={true}
-                        columns={['Presentation', 'Outlet', 'Type', 'Optometrist', 'Date', 'Actions']}
-                        data={data.constactLensAltTable}
-                        link={`/newConstDetail`}
-                        backgroundColor='bg-gray'
-                    />}
-                />
-                <FormTable
-                    id="contactLensDetails"
-                    title="CONTACT LENS SPECIFIC DETAILS"
-                    actions={true}
-                    columns={['Presentation', 'Outlet', 'Type', 'Optometrist', 'Date', 'Actions']}
-                    data={data.contactLensDetails}
-                    link={`/newConstDetail`}
-                />
-                <FormTable
-                    id="standardConstDetails"
-                    title="STANDARD CONSULTATION DETAILS"
-                    actions={true}
-                    columns={['Presentation', 'Outlet', 'Type', 'Optometrist', 'Date', 'Actions']}
-                    data={data.standardConstDetails}
-                    link={`/newConstDetail`}
-                />
-                <RadioGroupBar options={consOptions}></RadioGroupBar>
+                
+                <ClientFormTables data={consultationData} selectedOption={selectedOption} />
             </div>
-
             <div className='w-1/3'>
-
+                <Table
+                    id="personalDetails(vend)"
+                    title="Personal Details (Vend)"
+                    columns={['Title', 'Explanation']}
+                    data={consultationData.personalDetails}
+                />
+                <Table
+                    id="recall"
+                    title="Recall"
+                    columns={['Choose Your Recall Type']}
+                    data={dataWithRadioGroupBar}
+                    />
             </div>
-        </div>
+            </div>
 
+        </div>
     )
 }

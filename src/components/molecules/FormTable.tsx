@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { IconType } from 'react-icons';
 import { NamedTextarea } from '../atoms/NamedTextarea';
@@ -18,9 +17,8 @@ interface TableProps {
 
 const FormTable: React.FC<TableProps> = ({ id, title, columns, data, actions, link, icon: Icon, showHeader = true, altTable, backgroundColor = "bg-headerBgColor" }) => {
     return (
-        <div id={id}>
-            <table className="min-w-full border divide-y divide-gray-200 mt-4 ml-4 table-fixed">
-                {altTable && <div>{altTable}</div>}
+        <div id={id} className='m-4'>
+            <table className="w-full border divide-y divide-gray-200 ">
                 <thead className={backgroundColor}>
                     <tr>
                         {title && (
@@ -45,9 +43,10 @@ const FormTable: React.FC<TableProps> = ({ id, title, columns, data, actions, li
                         )}
                     </tr>
                 </thead>
+                {altTable && <div className='flex w-fit justify-center'>{altTable}</div>}
                 <tbody>
                     {data.map((row, rowIndex) => (
-                        <tr className='flex flex-row' key={rowIndex}>
+                        <tr className=' flex-row w-full' key={rowIndex}>
                             {row.map((cell, cellIndex) => {
                                 if (cell === null) {
                                     return null;

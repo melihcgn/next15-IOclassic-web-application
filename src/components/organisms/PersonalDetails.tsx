@@ -85,7 +85,7 @@ const PersonalDetails = () => {
                                 <InputWithLabel label="Hobbies"></InputWithLabel>
                             </div>
                             <div className="w-full p-4 flex flex-row justify-between">
-                                <RadioGroupBar options={options} defaultValue="option-two" />
+                                <RadioGroupBar options={options} />
                                 <Sidebar items={items} ></Sidebar>
                             </div>
                         </div>
