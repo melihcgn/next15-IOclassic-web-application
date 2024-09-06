@@ -1,4 +1,4 @@
-This is a web application project using React 19 and Next.JS 15. Made for optometrists to use newly designed, IO classic application. Since Next and React new releases are unstable, downgraded to Next.JS 14.2.4 version. 
+
 
 ## Getting Started
 
